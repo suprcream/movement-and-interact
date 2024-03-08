@@ -1,13 +1,8 @@
 using UnityEngine;
 
-interface IInteractable
-{
-    public void Interact();
-}
-
 public class Interactor : MonoBehaviour
 {
-    public Transform interactorSource;
+    private Transform interactorSource;
     public float interactRange;
 
     private void Start() {
@@ -19,7 +14,7 @@ public class Interactor : MonoBehaviour
             Ray ray = new Ray(interactorSource.position, interactorSource.forward);
             if (Physics.Raycast(ray, out RaycastHit hitInfo, interactRange)) {
                 if (hitInfo.collider.gameObject.TryGetComponent(out IInteractable interactObject)) {
-                    interactObject.Interact();
+                    interactObject.Interact(this);
                 }
             }
         }
